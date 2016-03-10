@@ -18,7 +18,7 @@ void anyadir_elementos(agrupacion<int> &ag ){
 //a declarar las dos funciones siguientes: 
 //void mostrar_elementos(const agrupacion_estatica<int>& ag)
 //void mostrar_elementos(const agrupacion_dinamica<int>& ag)
-void mostrar_elementos(agrupacion<int> &ag){
+void mostrar_elementos(const agrupacion<int> &ag){
 	for (int i : ag) cout<<i<<" ";
 	cout<<endl;
 }

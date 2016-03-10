@@ -94,8 +94,8 @@ public:
 		}
 	};
 
-	iterator_din begin() const { return iterator_din(*this,this->ultimo); }
-	iterator_din end()   const { return iterator_din(*this,NULL); }
+	typename agrupacion<T>::const_iterator begin() const { return iterator_din(*this,this->ultimo); }
+	typename agrupacion<T>::const_iterator end()   const { return iterator_din(*this,NULL); }
 };
 
 #endif //fin de agrupacion.h
