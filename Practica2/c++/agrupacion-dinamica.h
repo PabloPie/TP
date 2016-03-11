@@ -44,6 +44,7 @@ public:
 		if (sePuede){
 			nodo *aux=ultimo;
 			ultimo=ultimo->sig;
+			total--;
 			delete aux;	
 		}
 		return sePuede;
@@ -51,7 +52,7 @@ public:
 
 	~agrupacion_dinamica()
 	{
-		
+		while(borrarUltimo());
 	}
 
 	friend class iterator_din;
