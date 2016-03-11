@@ -11,7 +11,6 @@ template<typename T> void anyadir_elementos(T &ag ){
 	ag.anyadir(42);
 	ag.anyadir(15);
 	ag.borrarUltimo();
-	cout<<"AH NO, ES AQUI"<<endl;
 	for (int i = 0; i < 100; i+=5) ag.anyadir(i);
 }
 

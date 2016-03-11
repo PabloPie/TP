@@ -31,9 +31,9 @@ public:
 	bool anyadir(const T& p)
 	{
 
-		nodo n=nodo(p);
-		n.sig=ultimo;
-		ultimo=&n;
+		nodo *n=new nodo(p);
+		n->sig=ultimo;
+		ultimo=n;
 		total++;
 		return true;
 	}
@@ -42,17 +42,16 @@ public:
 	{
 		bool sePuede = total > 0;
 		if (sePuede){
-			nodo aux=*ultimo;
-			ultimo=(ultimo->sig);
-			std::cout << &aux << std::endl;
-			delete(&aux);	
+			nodo *aux=ultimo;
+			ultimo=ultimo->sig;
+			delete aux;	
 		}
 		return sePuede;
 	}
 
 	~agrupacion_dinamica()
 	{
-		while(borrarUltimo()){}
+		
 	}
 
 	friend class iterator_din;
@@ -69,11 +68,8 @@ public:
 
 		iterator_din& operator++()   
 	    { 			
-	       	if(patata->sig!=NULL){
+	       	if(patata!=NULL){
 	       		patata=patata->sig;
-	       	}
-	       	else{
-	       		std::cout<<"Ultimo dato."<<std::endl;
 	       	}
 	       	return (*this);			
 	    }
@@ -95,7 +91,7 @@ public:
 	};
 
 	iterator_din begin() const {return iterator_din(*this,this->ultimo);}
-	iterator_din end()   const { return iterator_din(*this,NULL);}
+	iterator_din end()   const {return iterator_din(*this,NULL);}
 };
 
 #endif //fin de agrupacion.h
