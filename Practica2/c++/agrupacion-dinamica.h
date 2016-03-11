@@ -2,10 +2,9 @@
 #define AGRUPACIONDINAMICA_H	
 // Interfaz del TAD agrupación genérico. Pre-declaraciones:
 #include <iostream>
-#include "agrupacion.h"
 
 template<typename T>
-class agrupacion_dinamica : public agrupacion<T>{
+class agrupacion_dinamica{
 	
 private: 
 	//Clase nodo
@@ -43,9 +42,10 @@ public:
 	{
 		bool sePuede = total > 0;
 		if (sePuede){
-			nodo *aux=ultimo;
-			ultimo=ultimo->sig;
-			delete(aux);
+			nodo aux=*ultimo;
+			ultimo=(ultimo->sig);
+			std::cout << &aux << std::endl;
+			delete(&aux);	
 		}
 		return sePuede;
 	}
@@ -58,7 +58,7 @@ public:
 	friend class iterator_din;
 	
 	//Clase iterador.
-	class iterator_din : public agrupacion<T>::const_iterator {
+	class iterator_din{
 
 	private:
 		nodo *patata;
@@ -94,8 +94,8 @@ public:
 		}
 	};
 
-	typename agrupacion<T>::const_iterator begin() const { return iterator_din(*this,this->ultimo); }
-	typename agrupacion<T>::const_iterator end()   const { return iterator_din(*this,NULL); }
+	iterator_din begin() const {return iterator_din(*this,this->ultimo);}
+	iterator_din end()   const { return iterator_din(*this,NULL);}
 };
 
 #endif //fin de agrupacion.h

@@ -1,12 +1,11 @@
 #ifndef AGRUPACIONESTATICA_H
 #define AGRUPACIONESTATICA_H
 
-#include "agrupacion.h"
 // Interfaz del TAD agrupación genérico. Pre-declaraciones:
 const int MAX = 40; //Límite tamaño de la agrupación, en esta implementación.
 
 template<typename T>
-class agrupacion_estatica : public agrupacion<T>{
+class agrupacion_estatica{
 	
 private:
 	//Mantenemos aqui los mismos atributos privados, ignorando aquellos que tengan que ver
@@ -52,7 +51,7 @@ public:
 	//llevando su propio "puntero" a que parte de la estructura estamos
 	friend class iterator_estat;
        
-	class iterator_estat: public agrupacion<T>::const_iterator	{
+	class iterator_estat{
 	private:
 		//Al separar el iterador en una clase aparte, trasladamos los miembros privados que estaban
 		//en el struct a esta clase. Además, mantenemos una referencia a la agrupacion.
@@ -109,8 +108,8 @@ public:
 	//la comprobación de que "existe siguiente".
 	//Date cuenta que los valores que le pasamos como índice del iterador son para que se recorra la
 	//estructura desde el último elemento (this->total - 1) hasta el primero (0).
-	typename agrupacion<T>::const_iterator begin() const { return iterator_estat(*this,this->total - 1); }
-	typename agrupacion<T>::const_iterator end()   const { return iterator_estat(*this,-1); }
+	iterator_estat begin() const { return iterator_estat(*this,this->total - 1); }
+	iterator_estat end()   const { return iterator_estat(*this,-1); }
 };
 
 #endif //fin de agrupacion_estatica.h
