@@ -1,12 +1,12 @@
 #ifndef AGRUPACIONDINAMICA_H
-#define AGRUPACIONDINAMICA_H	
+#define AGRUPACIONDINAMICA_H
 // Interfaz del TAD agrupación genérico. Pre-declaraciones:
 #include <iostream>
 
 template<typename T>
 class agrupacion_dinamica{
-	
-private: 
+
+private:
 	//Clase nodo
 	class nodo {
 	public:
@@ -22,9 +22,9 @@ private:
 	int total;
 
 public:
-	agrupacion_dinamica() 
-   	{  
-   		ultimo=NULL;
+	agrupacion_dinamica()
+  {  
+   	ultimo=NULL;
  		total=0;
 	}
 
@@ -45,7 +45,7 @@ public:
 			nodo *aux=ultimo;
 			ultimo=ultimo->sig;
 			total--;
-			delete aux;	
+			delete aux;
 		}
 		return sePuede;
 	}
@@ -56,7 +56,7 @@ public:
 	}
 
 	friend class iterator_din;
-	
+
 	//Clase iterador.
 	class iterator_din{
 
@@ -67,21 +67,21 @@ public:
 	public:
 		iterator_din(const agrupacion_dinamica& c_, nodo* npatata) : patata(npatata), c(c_) {  }
 
-		iterator_din& operator++()   
-	    { 			
+		iterator_din& operator++()
+	    {
 	       	if(patata!=NULL){
 	       		patata=patata->sig;
 	       	}
-	       	return (*this);			
+	       	return (*this);
 	    }
 
-		const T& operator*() const 
+		const T& operator*() const
 		{
-			return(patata->dato);	
-		} 
+			return(patata->dato);
+		}
 
-		bool operator!=(const iterator_din& that) const 
-		{ 
+		bool operator!=(const iterator_din& that) const
+		{
 			bool diff=true;
 			if(patata==that.patata)
 			{

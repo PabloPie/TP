@@ -4,77 +4,68 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.lang.UnsupportedOperationException;
 
-public class AgrupacionDinamica<T> implements Iterable<T>
+public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
 {
-	private static final int MAX = 40; 
+	private class nodo{
+        public nodo sig;
+        public T dato;
+        public nodo(T d){
+        	sig=null;
+        	dato=d;
+        }
+	}
+	nodo ultimo;
+	int total;
 
-	//Habrás notado que en Java no hay bloques "private" y "public", sino que es una palabra clave
-	//que se pone en cada elemento (atributo o método).
-	private T[] datos;
-	private int total;
 
-	//El constructor de Java llama a los constructores de los parámetros dentro del bloque de código.
 	@SuppressWarnings("unchecked")
-	public AgrupacionEstatica()
+	public AgrupacionDinamica()
 	{
-		datos = (T[])(new Object[MAX]);
-		total = 0;
+		ultimo=null;
+		total=0;
 	}
 
-	public boolean anyadir(T t) 
+	public boolean anyadir(T t)
 	{
-		//TODO: Rellena el código de este método para que anyada un elemento a la agrupacion
-		//y devuelva si ha sido posible (o no) meterlo.
-		boolean sePuede = total < MAX;
-		if (sePuede) {
-			datos[total] = t;
-			total++;
-		}
-		return sePuede;
+		nodo n=new nodo(t);
+		n.sig=ultimo;
+		ultimo=n;
+		total++;
+		return true;
 	}
 
 	public boolean borrarUltimo()
 	{
-		//TODO: Rellena el código de este método para que borre el último elemento de la agrupación
-		//y devuelva si ha sido posible (o no) borrarlo.
 		boolean sePuede = total > 0;
-		if (sePuede) total--;
+		if (sePuede){
+			ultimo=ultimo.sig;
+			total--;
+		}
 		return sePuede;
-	}
-
-	private class nodo{
-
-        public nodo n;
-        public T dato;
-
-        public nodo(T d){
-        	n=null;
-        	dato=d;
-        }
 	}
 
 	//Esta clase representa a un iterador sobre la agrupación. De nuevo, por el comportamiento estándar de los
 	//iteradores en Java, deberemos utilizar la herencia.
-	private class IteradorAgrupacion<T> implements Iterator<T> 
+	private class IteradorAgrupacion implements Iterator<T>
 	{
 		//Aquí declaramos los atributos
-		Agrupacion<T> ag;
-		int i;
+		AgrupacionDinamica<T> ag;
+		nodo n;
 
 		//Este es el constructor del iterador.
-		private IteradorAgrupacion(Agrupacion<T> ag) 
+		private IteradorAgrupacion(AgrupacionDinamica<T> ag)
 		{
 			this.ag = ag;
-			i       = ag.total - 1;
+			n       = ultimo;
 		}
 
 		//Todos los iteradores deben de implementar un método que devuelva
 		//si hay siguiente elemento (o no).
-		public boolean hasNext()	
+		public boolean hasNext()
 		{
 			//TODO: Devuelve si hay siguiente elemento o no.
 			boolean has=true;
-			if(i<0){
+			if(n==null){
 				has=false;
 			}
 			return has;
@@ -90,9 +81,8 @@ public class AgrupacionDinamica<T> implements Iterable<T>
 			//Aquí lanzamos la excepción
 			if (!hasNext()) throw new NoSuchElementException();
 			else {
-				dato=ag.datos[i];
-				i--;				
-				//TODO: Devuelve el elemento apuntado por el iterador, y avanza el iterador.
+				dato=n.dato;
+				n=n.sig;
 			}
 			return dato;
 		}
@@ -108,6 +98,6 @@ public class AgrupacionDinamica<T> implements Iterable<T>
 	//Este método de la estructura de datos simplemente devuelve un nuevo iterador con el que recorrerse la estructura de datos.
 	public Iterator<T> iterator()
 	{
-		return new IteradorAgrupacion<T>(this);
+		return new IteradorAgrupacion(this);
 	}
 }

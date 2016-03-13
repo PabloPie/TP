@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.lang.UnsupportedOperationException;
 
-//En Java, no existe el concepto de pre-declaracion ni de funcion. Java es un 
+//En Java, no existe el concepto de pre-declaracion ni de funcion. Java es un
 //lenguaje puramente orientado a objetos, por lo que todo son clases.
 //
 //El uso de programación paramétrica no requiere ninguna palabra clave. Directamente ponemos
@@ -12,10 +12,10 @@ import java.lang.UnsupportedOperationException;
 //Para hacer uso de iteradores, implementamos el interfaz Iterable<T>. Esto es un mecanismo
 //básico de la herencia en Java que es inevitable en este caso y sobre el que hablaremos
 //más adelante en clase de teoría.
-public class AgrupacionEstatica<T> implements Iterable<T>
+public class AgrupacionEstatica<T> implements Iterable<T>, Agrupacion<T>
 {
 	//Esta es la única forma que tiene Java de declarar valores inmutables.
-	private static final int MAX = 40; 
+	private static final int MAX = 40;
 
 	//Habrás notado que en Java no hay bloques "private" y "public", sino que es una palabra clave
 	//que se pone en cada elemento (atributo o método).
@@ -30,7 +30,7 @@ public class AgrupacionEstatica<T> implements Iterable<T>
 		total = 0;
 	}
 
-	public boolean anyadir(T t) 
+	public boolean anyadir(T t)
 	{
 		//TODO: Rellena el código de este método para que anyada un elemento a la agrupacion
 		//y devuelva si ha sido posible (o no) meterlo.
@@ -53,14 +53,14 @@ public class AgrupacionEstatica<T> implements Iterable<T>
 
 	//Esta clase representa a un iterador sobre la agrupación. De nuevo, por el comportamiento estándar de los
 	//iteradores en Java, deberemos utilizar la herencia.
-	private class IteradorAgrupacion<T> implements Iterator<T> 
+	private class IteradorAgrupacion implements Iterator<T>
 	{
 		//Aquí declaramos los atributos
-		Agrupacion<T> ag;
+		AgrupacionEstatica<T> ag;
 		int i;
 
 		//Este es el constructor del iterador.
-		private IteradorAgrupacion(Agrupacion<T> ag) 
+		private IteradorAgrupacion(AgrupacionEstatica<T> ag)
 		{
 			this.ag = ag;
 			i       = ag.total - 1;
@@ -68,7 +68,7 @@ public class AgrupacionEstatica<T> implements Iterable<T>
 
 		//Todos los iteradores deben de implementar un método que devuelva
 		//si hay siguiente elemento (o no).
-		public boolean hasNext()	
+		public boolean hasNext()
 		{
 			//TODO: Devuelve si hay siguiente elemento o no.
 			boolean has=true;
@@ -89,7 +89,7 @@ public class AgrupacionEstatica<T> implements Iterable<T>
 			if (!hasNext()) throw new NoSuchElementException();
 			else {
 				dato=ag.datos[i];
-				i--;				
+				i--;
 				//TODO: Devuelve el elemento apuntado por el iterador, y avanza el iterador.
 			}
 			return dato;
@@ -106,6 +106,6 @@ public class AgrupacionEstatica<T> implements Iterable<T>
 	//Este método de la estructura de datos simplemente devuelve un nuevo iterador con el que recorrerse la estructura de datos.
 	public Iterator<T> iterator()
 	{
-		return new IteradorAgrupacion<T>(this);
+		return new IteradorAgrupacion(this);
 	}
 }

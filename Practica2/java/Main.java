@@ -1,9 +1,10 @@
 public class Main
 {
 	//TODO: Define la cabecera de este metodo aprovechando la herencia para que sea equivalente
-	//a declarar los dos metodos siguientes: 
+	//a declarar los dos metodos siguientes:
 	//public static void anyadir_elementos(AgrupacionEstatica<Integer> ag)
 	//public static void anyadir_elementos(AgrupacionDinamica<Integer> ag)
+	public static void anyadir_elementos(Agrupacion<Integer> ag)
 	{
 		ag.anyadir(42);
 		ag.anyadir(15);
@@ -12,11 +13,12 @@ public class Main
 	}
 
 	//TODO: Define la cabecera de este metodo aprovechando la herencia para que sea equivalente
-	//a declarar los dos metodos siguientes: 
+	//a declarar los dos metodos siguientes:
 	//public static void mostrar_elementos(AgrupacionEstatica<Integer> ag)
 	//public static void mostrar_elementos(AgrupacionDinamica<Integer> ag)
+	public static void mostrar_elementos(Agrupacion<Integer> ag)
 	{
-		for (Integer i : ag) 
+		for (Integer i : ag)
 			System.out.print(i+" ");
 		System.out.println();
 	}
