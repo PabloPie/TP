@@ -7,7 +7,7 @@ template<typename T>
 class agrupacion_dinamica{
 
 private:
-	//Clase nodo
+	//Clase nodo que contiene el dato y un puntero al siguiente nodo.
 	class nodo {
 	public:
 		nodo *sig;
@@ -18,16 +18,21 @@ private:
 			dato=d;
 		}
 	};
+	//Primer nodo apuntado.
 	nodo *ultimo;
+	//Número total de nodo.
 	int total;
 
 public:
+
+	//Constructor de la clase agrupacion_dinamica.
 	agrupacion_dinamica()
-  {  
+  {
    	ultimo=NULL;
  		total=0;
 	}
 
+	//Añade un el objeto 't' a la agrupación. Devuelvue siempre true.
 	bool anyadir(const T& p)
 	{
 
@@ -38,6 +43,7 @@ public:
 		return true;
 	}
 
+	//Borra el nodo apuntado por 'ultimo'. Resta 1 al total de datos.
 	bool borrarUltimo()
 	{
 		bool sePuede = total > 0;
@@ -50,6 +56,8 @@ public:
 		return sePuede;
 	}
 
+	/* Destructor de la clae agrupacion_dinamica, recorre la lista invocando
+	 	borrarUltimo() para borrar los nodos. */
 	~agrupacion_dinamica()
 	{
 		while(borrarUltimo());
@@ -57,14 +65,18 @@ public:
 
 	friend class iterator_din;
 
-	//Clase iterador.
+	/* Clase IteradorDin que hereda la interfaz IteradorAgrupacion. Es el iterador
+		de la agrupación dinámica. */
 	class iterator_din{
 
 	private:
+		//Puntero al nodo actual.
 		nodo *patata;
+		//Referencia a la agrupación que recorre el iterador.
 		const agrupacion_dinamica<T>& c;
 
 	public:
+		//Constructor de la clase iterator_din.
 		iterator_din(const agrupacion_dinamica& c_, nodo* npatata) : patata(npatata), c(c_) {  }
 
 		iterator_din& operator++()

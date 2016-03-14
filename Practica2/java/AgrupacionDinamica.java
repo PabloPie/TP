@@ -1,4 +1,3 @@
-
 import java.lang.Iterable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -6,6 +5,7 @@ import java.lang.UnsupportedOperationException;
 
 public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
 {
+	//Clase nodo que contiene el dato y una referencia al siguiente nodo.
 	private class nodo{
         public nodo sig;
         public T dato;
@@ -14,17 +14,19 @@ public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
         	dato=d;
         }
 	}
+	//Primer nodo apuntado.
 	nodo ultimo;
+	//Número total de nodos
 	int total;
 
-
+	//Constructor de la clase
 	@SuppressWarnings("unchecked")
 	public AgrupacionDinamica()
 	{
 		ultimo=null;
 		total=0;
 	}
-
+	//Añade un el objeto 't' a la agrupación. Devuelvue siempre true.
 	public boolean anyadir(T t)
 	{
 		nodo n=new nodo(t);
@@ -34,6 +36,7 @@ public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
 		return true;
 	}
 
+	//Borra el nodo apuntado por 'ultimo'. Resta 1 al total de datos.
 	public boolean borrarUltimo()
 	{
 		boolean sePuede = total > 0;
@@ -43,27 +46,25 @@ public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
 		}
 		return sePuede;
 	}
-
-	//Esta clase representa a un iterador sobre la agrupación. De nuevo, por el comportamiento estándar de los
-	//iteradores en Java, deberemos utilizar la herencia.
+	/* Clase IteradorDin que hereda la interfaz IteradorAgrupacion. Es el iterador
+		de la agrupación dinámica. */
 	private class IteradorDin implements Iterator<T>, IteradorAgrupacion<T>
 	{
-		//Aquí declaramos los atributos
+		//Referencia a la agrupación que recorre el iterador.
 		AgrupacionDinamica<T> ag;
+		//Referencia al nodo actual.
 		nodo n;
 
-		//Este es el constructor del iterador.
+		//Constructor de la clase IteradorDin.
 		private IteradorDin(AgrupacionDinamica<T> ag)
 		{
 			this.ag = ag;
 			n       = ultimo;
 		}
 
-		//Todos los iteradores deben de implementar un método que devuelva
-		//si hay siguiente elemento (o no).
+		//Devuelve false si no quedan nodos que recorrer.
 		public boolean hasNext()
 		{
-			//TODO: Devuelve si hay siguiente elemento o no.
 			boolean has=true;
 			if(n==null){
 				has=false;
@@ -71,14 +72,10 @@ public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
 			return has;
 		}
 
-		//Todos los iteradores deben de implementar un método que devuelva el elemento
-		//en la posción actual y avance el iterador. Por construcción, este método debe
-		//lanzar una excepción si no existe el siguiente elemento.
-		//Recuerda que se recorren desde el último al primero.
+		//Devuelve el dato y avanza el iterador.
 		public T next() throws NoSuchElementException
 		{
 			T dato;
-			//Aquí lanzamos la excepción
 			if (!hasNext()) throw new NoSuchElementException();
 			else {
 				dato=n.dato;
@@ -87,15 +84,13 @@ public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
 			return dato;
 		}
 
-		//Los iteradores en Java tienen que tener este método, también. Para no implementarlo (no lo vamos
-		//a usar y nuestra definición de agrupación no lo incluye) simplemente lanzamos una excepción.
 		public void remove() throws UnsupportedOperationException
 		{
 			throw new UnsupportedOperationException();
 		}
 	}
 
-	//Este método de la estructura de datos simplemente devuelve un nuevo iterador con el que recorrerse la estructura de datos.
+	//Devuelve un iterador para la agrupación dinámica
 	public IteradorDin iterator()
 	{
 		return new IteradorDin(this);
