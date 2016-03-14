@@ -53,14 +53,14 @@ public class AgrupacionEstatica<T> implements Iterable<T>, Agrupacion<T>
 
 	//Esta clase representa a un iterador sobre la agrupación. De nuevo, por el comportamiento estándar de los
 	//iteradores en Java, deberemos utilizar la herencia.
-	private class IteradorAgrupacion implements Iterator<T>
+	private class IteradorEstat implements Iterator<T>, IteradorAgrupacion<T>
 	{
 		//Aquí declaramos los atributos
 		AgrupacionEstatica<T> ag;
 		int i;
 
 		//Este es el constructor del iterador.
-		private IteradorAgrupacion(AgrupacionEstatica<T> ag)
+		private IteradorEstat(AgrupacionEstatica<T> ag)
 		{
 			this.ag = ag;
 			i       = ag.total - 1;
@@ -104,8 +104,8 @@ public class AgrupacionEstatica<T> implements Iterable<T>, Agrupacion<T>
 	}
 
 	//Este método de la estructura de datos simplemente devuelve un nuevo iterador con el que recorrerse la estructura de datos.
-	public Iterator<T> iterator()
+	public IteradorEstat iterator()
 	{
-		return new IteradorAgrupacion(this);
+		return new IteradorEstat(this);
 	}
 }

@@ -46,14 +46,14 @@ public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
 
 	//Esta clase representa a un iterador sobre la agrupación. De nuevo, por el comportamiento estándar de los
 	//iteradores en Java, deberemos utilizar la herencia.
-	private class IteradorAgrupacion implements Iterator<T>
+	private class IteradorDin implements Iterator<T>, IteradorAgrupacion<T>
 	{
 		//Aquí declaramos los atributos
 		AgrupacionDinamica<T> ag;
 		nodo n;
 
 		//Este es el constructor del iterador.
-		private IteradorAgrupacion(AgrupacionDinamica<T> ag)
+		private IteradorDin(AgrupacionDinamica<T> ag)
 		{
 			this.ag = ag;
 			n       = ultimo;
@@ -96,8 +96,8 @@ public class AgrupacionDinamica<T> implements Iterable<T>, Agrupacion<T>
 	}
 
 	//Este método de la estructura de datos simplemente devuelve un nuevo iterador con el que recorrerse la estructura de datos.
-	public Iterator<T> iterator()
+	public IteradorDin iterator()
 	{
-		return new IteradorAgrupacion(this);
+		return new IteradorDin(this);
 	}
 }
