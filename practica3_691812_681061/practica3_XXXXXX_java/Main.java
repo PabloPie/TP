@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
-
-class Main {
+public class Main {
    public static void main(String[] args) {
 	Directorio raiz;
 	Ruta ruta;
@@ -17,7 +15,7 @@ class Main {
 	boolean end = false;
 
 	while (!end)
-	{ 
+	{
 		System.out.print(ruta.pwd()+"> ");
 		try {
 			String[] argv = br.readLine().split(" ");
@@ -52,4 +50,4 @@ class Main {
 		}
 	}
    }
-};
+}

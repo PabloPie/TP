@@ -1,11 +1,9 @@
-import "Elemento.java";
-
 public class Archivo extends Elemento{
 
   private int tamano;
 
   public Archivo(String nombre){
-    super.setNombre(nombre);
+    this.nombre=nombre;
     tamano=0;
   }
 
@@ -19,6 +17,10 @@ public class Archivo extends Elemento{
 
   public void borrar(){
     nombre=null;
-    tamano=null;
+    tamano=0;
+  }
+
+  public String tipo(){
+    return "Archivo";
   }
 }

@@ -1,6 +1,6 @@
 public abstract class Elemento{
 
-    private String nombre;
+    protected String nombre;
 
     public String getNombre(){
       return nombre;
@@ -15,4 +15,6 @@ public abstract class Elemento{
     public abstract void setTamano(int size);
 
     public abstract void borrar();
+
+    public abstract String tipo();
 }
