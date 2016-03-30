@@ -7,8 +7,10 @@ public class Directorio extends Elemento{
     this.nombre=nombre;
   }
 
-  public void anadirEle(Elemento e){
-    contenido.add(e);
+  public void anadirEle(Elemento e) throws ExcepcionExiste{
+    if(this.existeEle(e.getNombre()))
+      throw new ExcepcionExiste();
+    else contenido.add(e);
   }
 
   public void borrarEle(String nombre) throws noExisteException{
@@ -23,20 +25,19 @@ public class Directorio extends Elemento{
   }
 
   public Elemento getEle(String nombre) throws noExisteException{
-    for(Elemento e: contenido){
-      if(e.getNombre().equals(nombre)){
-        return e;
+      for(Elemento e: contenido){
+        if(e.getNombre().equals(nombre)){
+          return e;
+        }
       }
-    }
-    throw new noExisteException();
+     throw new noExisteException();
   }
 
   public boolean existeEle(String nombre){
-
     for(Elemento e: contenido){
       if(e.getNombre().equals(nombre)) return true;
     }
-    throw new noExisteException();
+    return false;
   }
 
   public int getTamano(){
@@ -48,12 +49,12 @@ public class Directorio extends Elemento{
   }
 
   public void setTamano(int i){
-    System.out.println("No puedes modificar el tamaño de un directorio.");
+    System.err.println("No puedes modificar el tamaño de un directorio.");
   }
 
   public void mostrar(){
     for(Elemento e: contenido){
-      System.out.println(e.getNombre());
+      System.out.println(e.tipo()+" , "+e.getNombre());
     }
   }
 

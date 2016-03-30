@@ -41,7 +41,7 @@ public class Ruta{
   }
 
   private void cdDir(String dir) throws noDirException{
-    if(path.getLast().existeEle(dir) && path.getLast().tipo().equals("Directorio"))
+    if(path.getLast().existeEle(dir) && path.getLast().getEle(dir).tipo().equals("Directorio"))
       path.add((Directorio)(path.getLast().getEle(dir)));
     else
       throw new noDirException();
@@ -50,11 +50,11 @@ public class Ruta{
   public void stat(String element) throws noDirException{
     Elemento e;
     if (element.startsWith("/")){
-        e = path.get(0);
+        e = path.getFirst();
         element = element.substring(1);
     }
     else
-      e = path.get(path.size()-1);
+      e = path.getLast();
 
     Scanner S = new Scanner(element);
     S.useDelimiter("/");
@@ -69,16 +69,76 @@ public class Ruta{
       System.out.println(e.getTamano());
   }
 
-  public void vim(String file, int size){
+  public void vim(String file, int size) throws ExcepcionExisteDir{
+    Directorio d=path.getLast();
+    if(d.existeEle(file)){
+      Elemento e=d.getEle(file);
+      if(e.tipo().equals("Archivo") || e.tipo().equals("Enlace"))
+        e.setTamano(size);
+      else throw new ExcepcionExisteDir();
+    }else{
+      Archivo a= new Archivo(file);
+      a.setTamano(size);
+      d.anadirEle(a);
+    }
   }
 
-  public void mkdir(String dir){
+  public void mkdir(String dir) throws ExcepcionExiste{
+    Directorio d=path.getLast();
+    if(d.existeEle(dir)) throw new ExcepcionExiste();
+    Directorio n=new Directorio(dir);
+    d.anadirEle(n);
   }
 
   public void ln(String orig, String dest){
-  }
+    Directorio des = path.getLast();
+		if(des.existeEle(dest))
+      throw new ExcepcionExiste();
 
-  public void rm(String e){
+    Elemento e;
+    if (orig.startsWith("/")){
+        e = path.getFirst();
+        orig = orig.substring(1);
+    }
+    else
+      e = path.getLast();
+
+    Scanner S = new Scanner(orig);
+    S.useDelimiter("/");
+    while(S.hasNext()){
+      String aux = S.next();
+      if(e.tipo().equals("Directorio")){
+    		if(((Directorio)e).existeEle(aux)){
+    				e = ((Directorio)e).getEle(aux);
+    		}else throw new noExisteException();
+    	}else throw new noDirException();
+    }
+
+		Enlace ori = new Enlace(e,dest);
+		des.anadirEle(ori);
+	}
+
+
+  public void rm(String ruta){
+    Elemento e;
+    if (ruta.startsWith("/")){
+        e = path.getFirst();
+        ruta = ruta.substring(1);
+    }
+    else
+      e = path.getLast();
+
+    Scanner S = new Scanner(ruta);
+    S.useDelimiter("/");
+    while(S.hasNext()){
+      String aux = S.next();
+      if(e.tipo().equals("Directorio")){
+    		if(((Directorio)e).existeEle(aux)){
+    				e = ((Directorio)e).getEle(aux);
+    		}else throw new noExisteException();
+    	}else throw new noDirException();
+    }
+    e.borrar();
   }
 
 

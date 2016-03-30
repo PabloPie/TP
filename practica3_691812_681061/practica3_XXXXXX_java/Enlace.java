@@ -11,22 +11,14 @@ public class Enlace extends Elemento{
   }
 
   public void setTamano(int i){
-    System.out.println("No puedes modificar el tamaño de un enlace.");
+      apuntado.setTamano(i);
   }
 
   public Elemento getApuntado(){
-    if(this.tipoF().equals("Archivo")){
-      if(apuntado.tipo().equals("Archivo")){
-
-      }
-      else if(apuntado.tipo().equals("Directorio")){
-
-      }
-      else{
+      if(apuntado.tipo().equals("Enlace")){
         return ((Enlace)apuntado).getApuntado();
-      }
+      }else return apuntado;
     }
-  }
 
   public void borrar(){
     apuntado=null;
