@@ -4,7 +4,7 @@ public class Directorio extends Elemento{
   LinkedList<Elemento> contenido = new LinkedList<Elemento>();
 
   public Directorio(String nombre) throws ExcepcionNombre{
-    if(nombre.contains("/")) throw new ExcepcionNombre();
+    if(nombre.contains("/") || nombre.equals(".") || nombre.equals("..")) throw new ExcepcionNombre();
     this.nombre=nombre;
   }
 

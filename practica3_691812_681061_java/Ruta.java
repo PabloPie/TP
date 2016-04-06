@@ -12,7 +12,7 @@ public class Ruta{
   public String pwd(){
     String p="";
     for(Directorio d: path){
-      p+="/"+d.getNombre();
+      p+=d.getNombre()+"/";
     }
     return p;
   }
@@ -68,8 +68,15 @@ public class Ruta{
   					}else throw new noExisteException();
   				}else throw new noDirException();
   		}
+      int tamano=0;
+      try{
+          tamano=e.getTamano();
+        }catch(StackOverflowError ex){
+          System.out.println("Error, recursión infinita.");
+          System.exit(1);
+        }
       System.out.println("\u001B[36m"+e.tipo()+"\u001B[31m  "+
-      e.getTamano()+"\u001B[0m  "+e.getNombre());
+      tamano+"\u001B[0m  "+e.getNombre());
   }
 
   public void vim(String file, int size)

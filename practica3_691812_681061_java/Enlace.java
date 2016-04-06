@@ -8,7 +8,7 @@ public class Enlace extends Elemento{
   }
 
   public int getTamano(){
-  return apuntado.getTamano();
+    return apuntado.getTamano();
   }
 
   public void setTamano(int i){
