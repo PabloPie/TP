@@ -1,6 +1,7 @@
-public class Camion extends Chargeable{
+public class Camion extends Chargeable<T extends Generico>{
 
   public Camion(double cap){
-    capacidad=cap;
+    super(cap);
+    super.carga = new ArrayList<T>();
   }
 }

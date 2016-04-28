@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 
-public abstract class Chargeable{
-  double capacidad;
-  private ArrayList<Charge> carga = new ArrayList<Charge>();
+public abstract class Chargeable<T extends Charge>{
+  private double capacidad;
+  private ArrayList<Charge> carga;
 
-  public boolean guardar(Charge elemento){
+  public Chargeable(double capacidad){
+		this.capacidad=capacidad;
+	}
+
+  public boolean guardar(T elemento){
     boolean guardado=false;
     if (this.capacidad >= elemento.getVolumen()){
       carga.add(elemento);

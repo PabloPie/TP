@@ -1,4 +1,4 @@
-public class Producto implements Charge{
+public class Producto implements Generico{
     private double volumen;
     private String nombre;
 
@@ -7,5 +7,8 @@ public class Producto implements Charge{
       this.nombre=nombre;
     }
 
+    public double getVolumen(){
+      return volumen;
+    }
 
 }

@@ -1,9 +1,10 @@
-public class Contenedor extends Chargeable implements Charge{
+public class Contenedor<T extends Charge> extends Chargeable<T> implements Generico{
     private double volumen;
 
     public Contenedor(double size){
+      super(size);
       volumen=size;
-      capacidad=size;
+      super.carga = new ArrayList<T>();
     }
 
   public double getVolumen(){

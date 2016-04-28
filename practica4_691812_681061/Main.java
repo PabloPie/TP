@@ -10,7 +10,7 @@ class Main {
 		if (!camion.guardar(contenedor_generico)) System.out.println("Camion lleno con contenedor generico");
 		if (!camion.guardar(contenedor_toxico))   System.out.println("Camion lleno con contenedor toxicos");
 		if (!camion.guardar(contenedor_servivo))  System.out.println("Camion lleno con contenedor de seres vivos");
-		if (!camion.guardar(apuntes_tepro))   System.out.println("Camion lleno con apuntes de tepro");
+		if (!camion.guardar(apuntes_tepro))   		System.out.println("Camion lleno con apuntes de tepro");
 
 		Producto              trenzas_almudevar  = new Producto(0.5, "Trenzas de Almudevar");
 		if (!camion.guardar(trenzas_almudevar))   System.out.println("Camion lleno con trenzas de Almudevar");
